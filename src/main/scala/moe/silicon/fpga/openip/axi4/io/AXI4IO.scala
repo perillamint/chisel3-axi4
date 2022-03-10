@@ -8,7 +8,8 @@ import moe.silicon.fpga.openip.axi4.AXI4Param
 class AXI4MasterBundle(param: AXI4Param) extends Bundle {
   // AXI4 Master IO
 
-  val clk     = Input(Clock())
+  // should we use this...?
+  // val clk     = Input(Clock())
 
   // AW channel
   val awaddr  = Output(UInt(param.addrWidth.W))

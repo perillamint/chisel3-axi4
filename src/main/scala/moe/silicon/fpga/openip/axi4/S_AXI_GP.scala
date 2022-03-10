@@ -30,6 +30,7 @@ class S_AXI_GP(axi4param: AXI4Param) extends Module {
     val axi_rdata   = RegInit(0.U(axi4param.dataWidth.W))
     val axi_rid     = RegInit(0.U(axi4param.idWidth.W))
     val axi_bid     = RegInit(0.U(axi4param.idWidth.W))
+    val axi_bresp   = RegInit(0.U(2.W))
 
     // Wire up them to the output!
     S_AXI.awready := axi_awready
@@ -40,6 +41,7 @@ class S_AXI_GP(axi4param: AXI4Param) extends Module {
     S_AXI.rvalid  := axi_rvalid
     S_AXI.rid     := axi_rid
     S_AXI.bid     := axi_bid
+    S_AXI.bresp   := axi_bresp
 
     // AXI address registers
     val axi_raddr  = RegInit(0.U(axi4param.addrWidth.W))
@@ -161,6 +163,8 @@ class S_AXI_GP(axi4param: AXI4Param) extends Module {
       is (AXI4WriteState.BVALID) {
         // Turn on BVALID
         axi_bvalid := 1.B
+        // Always ACK burst write... for now.
+        axi_bresp := 0.U
 
         // Wait for BREADY
         when (S_AXI.bready) {
@@ -175,8 +179,5 @@ class S_AXI_GP(axi4param: AXI4Param) extends Module {
         axiWriteState := AXI4WriteState.AWVALID
       }
     }
-
-    // Always ACK burst write
-    S_AXI.bresp := 0.U
   }
 }

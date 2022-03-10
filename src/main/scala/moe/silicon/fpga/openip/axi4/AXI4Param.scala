@@ -13,7 +13,7 @@ case class AXI4Param (
   wuserWidth: Int,
   ruserWidth: Int,
   buserWidth: Int,
-  isLite: Boolean,
+  isLite: Boolean, // TODO: Implement me
 )
 
 // AXI4 state machine definition
